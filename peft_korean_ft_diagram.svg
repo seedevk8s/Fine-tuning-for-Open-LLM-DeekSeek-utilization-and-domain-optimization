@@ -1,0 +1,213 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+    PEFT와 한국어 파인튜닝 모델 관계도
+  </text>
+  
+  <!-- Base Model Section -->
+  <rect x="50" y="70" width="200" height="80" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="150" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Base Model
+  </text>
+  <text x="150" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    GPT, LLaMA, BERT
+  </text>
+  <text x="150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    사전훈련된 모델
+  </text>
+  
+  <!-- Arrow 1 -->
+  <path d="M 250 110 L 320 110" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Instruction Tuning Section -->
+  <rect x="330" y="70" width="200" height="80" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="430" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Instruction Tuning
+  </text>
+  <text x="430" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    지시사항 따르기
+  </text>
+  <text x="430" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    명령어 형태 학습
+  </text>
+  
+  <!-- Arrow 2 -->
+  <path d="M 530 110 L 600 110" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Korean Specialized Models -->
+  <rect x="610" y="50" width="150" height="60" rx="8" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+  <text x="685" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    KoAlpaca
+  </text>
+  <text x="685" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+    한국어 대화형
+  </text>
+  <text x="685" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+    지시 모델
+  </text>
+  
+  <rect x="610" y="120" width="150" height="60" rx="8" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+  <text x="685" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    KoQuard
+  </text>
+  <text x="685" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+    한국어 Q-A
+  </text>
+  <text x="685" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+    특화 모델
+  </text>
+  
+  <!-- Q-A Set Section -->
+  <rect x="100" y="220" width="280" height="100" rx="10" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="240" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Q-A Set (질문-답변 세트)
+  </text>
+  <text x="120" y="270" font-family="Arial, sans-serif" font-size="12" fill="white">
+    • 질문: "한국의 수도는 어디인가요?"
+  </text>
+  <text x="120" y="285" font-family="Arial, sans-serif" font-size="12" fill="white">
+    • 답변: "한국의 수도는 서울입니다."
+  </text>
+  <text x="120" y="300" font-family="Arial, sans-serif" font-size="12" fill="white">
+    • 한국 문화, 역사, 일반상식 포함
+  </text>
+  
+  <!-- PEFT Section -->
+  <rect x="500" y="220" width="400" height="140" rx="10" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+  <text x="700" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+    PEFT (Parameter-Efficient Fine-Tuning)
+  </text>
+  
+  <!-- PEFT Methods -->
+  <rect x="520" y="260" width="80" height="40" rx="5" fill="#e8daef" stroke="#bb8fce" stroke-width="1"/>
+  <text x="560" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#8e44ad">
+    LoRA
+  </text>
+  <text x="560" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#8e44ad">
+    저순위 적응
+  </text>
+  
+  <rect x="610" y="260" width="80" height="40" rx="5" fill="#e8daef" stroke="#bb8fce" stroke-width="1"/>
+  <text x="650" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#8e44ad">
+    AdaLoRA
+  </text>
+  <text x="650" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#8e44ad">
+    적응형 LoRA
+  </text>
+  
+  <rect x="700" y="260" width="80" height="40" rx="5" fill="#e8daef" stroke="#bb8fce" stroke-width="1"/>
+  <text x="740" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#8e44ad">
+    Prefix
+  </text>
+  <text x="740" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#8e44ad">
+    접두사 튜닝
+  </text>
+  
+  <rect x="790" y="260" width="80" height="40" rx="5" fill="#e8daef" stroke="#bb8fce" stroke-width="1"/>
+  <text x="830" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#8e44ad">
+    P-Tuning
+  </text>
+  <text x="830" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#8e44ad">
+    프롬프트 튜닝
+  </text>
+  
+  <!-- PEFT Benefits -->
+  <text x="520" y="320" font-family="Arial, sans-serif" font-size="12" fill="white">
+    장점: • 메모리 효율성 ↑  • 연산 비용 ↓  • 성능 유지
+  </text>
+  <text x="520" y="340" font-family="Arial, sans-serif" font-size="12" fill="white">
+          • 빠른 학습 속도  • 저장 공간 절약
+  </text>
+  
+  <!-- Process Flow -->
+  <rect x="50" y="400" width="900" height="120" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="500" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    한국어 파인튜닝 프로세스
+  </text>
+  
+  <!-- Process Steps -->
+  <circle cx="120" cy="470" r="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <text x="120" y="476" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="120" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Base Model</text>
+  <text x="120" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">선택</text>
+  
+  <path d="M 145 470 L 195 470" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <circle cx="220" cy="470" r="25" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="220" y="476" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+  <text x="220" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">한국어 Q-A</text>
+  <text x="220" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">데이터 준비</text>
+  
+  <path d="M 245 470 L 295 470" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <circle cx="320" cy="470" r="25" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+  <text x="320" y="476" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+  <text x="320" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">PEFT 기법</text>
+  <text x="320" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">적용</text>
+  
+  <path d="M 345 470 L 395 470" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <circle cx="420" cy="470" r="25" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+  <text x="420" y="476" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+  <text x="420" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">효율적</text>
+  <text x="420" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">파인튜닝</text>
+  
+  <path d="M 445 470 L 495 470" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <circle cx="520" cy="470" r="25" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+  <text x="520" y="476" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+  <text x="520" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">한국어 특화</text>
+  <text x="520" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">모델 완성</text>
+  
+  <!-- Examples -->
+  <rect x="600" y="440" width="280" height="60" rx="8" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="740" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#495057">
+    결과물 예시
+  </text>
+  <text x="620" y="480" font-family="Arial, sans-serif" font-size="11" fill="#6c757d">
+    • KoAlpaca: 한국어 대화 및 지시 수행
+  </text>
+  <text x="620" y="492" font-family="Arial, sans-serif" font-size="11" fill="#6c757d">
+    • KoQuard: 한국어 질문-답변 전문
+  </text>
+  
+  <!-- Connections -->
+  <path d="M 240 320 L 430 400" stroke="#95a5a6" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+  <path d="M 700 360 L 520 440" stroke="#95a5a6" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+  
+  <!-- Key Benefits Box -->
+  <rect x="50" y="560" width="900" height="100" rx="10" fill="#2c3e50" stroke="#34495e" stroke-width="2"/>
+  <text x="500" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    핵심 장점 및 특징
+  </text>
+  
+  <text x="70" y="610" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 전체 모델 재훈련 대비 90% 이상 메모리 절약
+  </text>
+  <text x="70" y="625" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 한국어 특화 성능 향상 (문화적 맥락 이해 포함)
+  </text>
+  <text x="70" y="640" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 빠른 개발 주기와 실험 가능
+  </text>
+  
+  <text x="520" y="610" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 다양한 도메인별 특화 모델 생성 가능
+  </text>
+  <text x="520" y="625" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 기존 모델의 일반 능력 유지하면서 특화 기능 추가
+  </text>
+  <text x="520" y="640" font-family="Arial, sans-serif" font-size="12" fill="#ecf0f1">
+    ✓ 적은 데이터로도 효과적인 성능 개선
+  </text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,511 @@
+<svg viewBox="0 0 1500 1100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1500" height="1100" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="750" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#2c3e50">
+    LoRA + SFT (Supervised Fine-Tuning) 훈련 과정
+  </text>
+  
+  <!-- Step 1: Base Model Architecture -->
+  <rect x="50" y="60" width="1400" height="120" rx="12" fill="#e8f4fd" stroke="#3498db" stroke-width="2"/>
+  <text x="750" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    1단계: 베이스 모델 구조 이해
+  </text>
+  
+  <!-- Original Transformer Layer -->
+  <rect x="100" y="100" width="300" height="60" rx="8" fill="#d6eaf8" stroke="#2980b9" stroke-width="1"/>
+  <text x="250" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b4f72">
+    원본 Transformer Layer
+  </text>
+  <text x="110" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2980b9">
+    • Self-Attention: Q, K, V 행렬 (수십억 파라미터)</text>
+  <text x="110" y="155" font-family="Arial, sans-serif" font-size="11" fill="#2980b9">
+    • Feed Forward: 2개 선형 레이어 (가장 큰 파라미터)</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 130 L 450 130" stroke="#3498db" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- LoRA Injection Point -->
+  <rect x="460" y="100" width="300" height="60" rx="8" fill="#c8e6c9" stroke="#27ae60" stroke-width="2"/>
+  <text x="610" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">
+    LoRA 적용 지점
+  </text>
+  <text x="470" y="145" font-family="Arial, sans-serif" font-size="11" fill="#27ae60">
+    • Query(q_proj), Value(v_proj) 행렬에 LoRA 추가</text>
+  <text x="470" y="155" font-family="Arial, sans-serif" font-size="11" fill="#27ae60">
+    • 원본 가중치는 고정(frozen), LoRA만 학습</text>
+  
+  <!-- Arrow -->
+  <path d="M 760 130 L 810 130" stroke="#3498db" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- SFT Data -->
+  <rect x="820" y="100" width="300" height="60" rx="8" fill="#ffeaa7" stroke="#fdcb6e" stroke-width="2"/>
+  <text x="970" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b4513">
+    SFT 훈련 데이터
+  </text>
+  <text x="830" y="145" font-family="Arial, sans-serif" font-size="11" fill="#d63031">
+    • 입력-출력 쌍 (Instruction-Response)</text>
+  <text x="830" y="155" font-family="Arial, sans-serif" font-size="11" fill="#d63031">
+    • 고품질 라벨링된 데이터셋</text>
+  
+  <!-- Arrow -->
+  <path d="M 1120 130 L 1170 130" stroke="#3498db" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Combined Training -->
+  <rect x="1180" y="100" width="250" height="60" rx="8" fill="#dda0dd" stroke="#8b008b" stroke-width="2"/>
+  <text x="1305" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4b0082">
+    LoRA + SFT 결합
+  </text>
+  <text x="1190" y="145" font-family="Arial, sans-serif" font-size="11" fill="#8b008b">
+    • 효율적 감독 학습</text>
+  <text x="1190" y="155" font-family="Arial, sans-serif" font-size="11" fill="#8b008b">
+    • 도메인 특화 성능</text>
+  
+  <!-- Step 2: LoRA Mathematical Foundation -->
+  <rect x="50" y="200" width="700" height="180" rx="12" fill="#f0f8e7" stroke="#4caf50" stroke-width="2"/>
+  <text x="400" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    2단계: LoRA 수학적 원리
+  </text>
+  
+  <!-- Original Matrix -->
+  <rect x="80" y="250" width="120" height="100" rx="5" fill="#ffcdd2" stroke="#f44336" stroke-width="1"/>
+  <text x="140" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c62828">
+    원본 가중치 W
+  </text>
+  <text x="140" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d32f2f">
+    d × d 행렬
+  </text>
+  <text x="140" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d32f2f">
+    (예: 4096×4096)
+  </text>
+  <text x="90" y="330" font-family="Arial, sans-serif" font-size="9" fill="#d32f2f">
+    • 16M+ 파라미터</text>
+  <text x="90" y="342" font-family="Arial, sans-serif" font-size="9" fill="#d32f2f">
+    • 학습 시 고정(frozen)</text>
+  
+  <!-- Plus Sign -->
+  <text x="230" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#666">+</text>
+  
+  <!-- LoRA Decomposition -->
+  <rect x="260" y="250" width="80" height="100" rx="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+  <text x="300" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2e7d32">
+    A 행렬
+  </text>
+  <text x="300" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">
+    d × r
+  </text>
+  <text x="300" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">
+    (4096×8)
+  </text>
+  <text x="270" y="330" font-family="Arial, sans-serif" font-size="9" fill="#388e3c">
+    • 32K 파라미터</text>
+  <text x="270" y="342" font-family="Arial, sans-serif" font-size="9" fill="#388e3c">
+    • 학습 가능</text>
+  
+  <!-- Multiplication -->
+  <text x="370" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#666">×</text>
+  
+  <!-- B Matrix -->
+  <rect x="390" y="250" width="80" height="100" rx="5" fill="#bbdefb" stroke="#2196f3" stroke-width="1"/>
+  <text x="430" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1976d2">
+    B 행렬
+  </text>
+  <text x="430" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1976d2">
+    r × d
+  </text>
+  <text x="430" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1976d2">
+    (8×4096)
+  </text>
+  <text x="400" y="330" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    • 32K 파라미터</text>
+  <text x="400" y="342" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    • 학습 가능</text>
+  
+  <!-- Scaling Factor -->
+  <rect x="500" y="275" width="60" height="50" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="530" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#e65100">
+    α/r
+  </text>
+  <text x="530" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f57c00">
+    스케일링
+  </text>
+  <text x="530" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f57c00">
+    (32/8=4)
+  </text>
+  
+  <!-- Final Formula -->
+  <rect x="580" y="250" width="140" height="100" rx="5" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+  <text x="650" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2">
+    최종 출력
+  </text>
+  <text x="650" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#8e24aa">
+    h = W₀x + ΔWx
+  </text>
+  <text x="650" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#8e24aa">
+    ΔW = (α/r)BA
+  </text>
+  <text x="590" y="330" font-family="Arial, sans-serif" font-size="9" fill="#8e24aa">
+    • 원본 + LoRA 증분</text>
+  <text x="590" y="342" font-family="Arial, sans-serif" font-size="9" fill="#8e24aa">
+    • 99% 파라미터 절약</text>
+  
+  <!-- Memory Comparison -->
+  <rect x="780" y="200" width="670" height="180" rx="12" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+  <text x="1115" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    메모리 효율성 비교
+  </text>
+  
+  <!-- Full Fine-tuning -->
+  <rect x="800" y="250" width="200" height="120" rx="8" fill="#ffcdd2" stroke="#f44336" stroke-width="1"/>
+  <text x="900" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#c62828">
+    전체 파인튜닝
+  </text>
+  <text x="810" y="295" font-family="Arial, sans-serif" font-size="11" fill="#d32f2f">
+    🔥 메모리: 320GB+
+  </text>
+  <text x="810" y="310" font-family="Arial, sans-serif" font-size="11" fill="#d32f2f">
+    ⏰ 시간: 200-500시간
+  </text>
+  <text x="810" y="325" font-family="Arial, sans-serif" font-size="11" fill="#d32f2f">
+    💾 저장: 15-70GB
+  </text>
+  <text x="810" y="340" font-family="Arial, sans-serif" font-size="11" fill="#d32f2f">
+    🎯 학습 파라미터: 100%
+  </text>
+  <text x="810" y="355" font-family="Arial, sans-serif" font-size="11" fill="#d32f2f">
+    💰 비용: 매우 높음
+  </text>
+  
+  <!-- VS Arrow -->
+  <text x="1050" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#666">VS</text>
+  
+  <!-- LoRA + SFT -->
+  <rect x="1100" y="250" width="200" height="120" rx="8" fill="#c8e6c9" stroke="#4caf50" stroke-width="2"/>
+  <text x="1200" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">
+    LoRA + SFT
+  </text>
+  <text x="1110" y="295" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    💚 메모리: 24-48GB
+  </text>
+  <text x="1110" y="310" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    ⚡ 시간: 5-20시간
+  </text>
+  <text x="1110" y="325" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    💾 저장: 10-100MB
+  </text>
+  <text x="1110" y="340" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    🎯 학습 파라미터: 0.1-1%
+  </text>
+  <text x="1110" y="355" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    💰 비용: 매우 낮음
+  </text>
+  
+  <!-- Efficiency Metrics -->
+  <rect x="800" y="380" width="500" height="40" rx="5" fill="#e8f5e8" stroke="#4caf50" stroke-width="1"/>
+  <text x="1050" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">
+    📊 효율성 지표
+  </text>
+  <text x="810" y="410" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    메모리 절약: 85-90% ↓ | 시간 절약: 90-95% ↓ | 저장공간: 99% ↓ | 비용 절약: 95% ↓
+  </text>
+  
+  <!-- Step 3: SFT Training Process -->
+  <rect x="50" y="440" width="1400" height="280" rx="12" fill="#e8f5ff" stroke="#2196f3" stroke-width="2"/>
+  <text x="750" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    3단계: SFT (Supervised Fine-Tuning) 훈련 과정
+  </text>
+  
+  <!-- Data Preparation -->
+  <rect x="80" y="480" width="250" height="120" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="205" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">
+    데이터 준비
+  </text>
+  
+  <!-- Instruction Format -->
+  <rect x="90" y="520" width="230" height="70" rx="5" fill="#ffecb3" stroke="#ff8f00" stroke-width="1"/>
+  <text x="205" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#bf360c">
+    Instruction Format
+  </text>
+  <text x="100" y="550" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    System: "당신은 금융 전문가입니다"
+  </text>
+  <text x="100" y="562" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    User: "이 뉴스를 분석해주세요: [뉴스내용]"
+  </text>
+  <text x="100" y="574" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    Assistant: "{'summary': '...', 'stocks': [...]}"
+  </text>
+  <text x="100" y="586" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    ✅ 고품질 라벨링 | ✅ 일관된 형식
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 330 540 L 370 540" stroke="#2196f3" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Tokenization -->
+  <rect x="380" y="480" width="250" height="120" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="1"/>
+  <text x="505" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1976d2">
+    토큰화 + 레이블링
+  </text>
+  
+  <rect x="390" y="520" width="230" height="70" rx="5" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+  <text x="505" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">
+    Chat Template 적용
+  </text>
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    &lt;|begin_of_text|&gt;&lt;|start_header_id|&gt;system...
+  </text>
+  <text x="400" y="562" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    input_ids: [128000, 128006, 9125, ...]
+  </text>
+  <text x="400" y="574" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    labels: [-100, -100, ..., 13922, 43324, ...]
+  </text>
+  <text x="400" y="586" font-family="Arial, sans-serif" font-size="9" fill="#1976d2">
+    ✅ Assistant 구간만 학습 대상으로 설정
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 630 540 L 670 540" stroke="#2196f3" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Training Loop -->
+  <rect x="680" y="480" width="250" height="120" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1"/>
+  <text x="805" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7b1fa2">
+    훈련 루프
+  </text>
+  
+  <rect x="690" y="520" width="230" height="70" rx="5" fill="#e1bee7" stroke="#9c27b0" stroke-width="1"/>
+  <text x="805" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">
+    LoRA 파라미터만 업데이트
+  </text>
+  <text x="700" y="550" font-family="Arial, sans-serif" font-size="9" fill="#7b1fa2">
+    1. Forward: h = Wx + α/r·B·A·x
+  </text>
+  <text x="700" y="562" font-family="Arial, sans-serif" font-size="9" fill="#7b1fa2">
+    2. Loss: CrossEntropy(output, labels)
+  </text>
+  <text x="700" y="574" font-family="Arial, sans-serif" font-size="9" fill="#7b1fa2">
+    3. Backward: ∇A, ∇B 계산
+  </text>
+  <text x="700" y="586" font-family="Arial, sans-serif" font-size="9" fill="#7b1fa2">
+    4. Update: A, B만 업데이트 (W는 고정)
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 930 540 L 970 540" stroke="#2196f3" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Model Evaluation -->
+  <rect x="980" y="480" width="250" height="120" rx="8" fill="#e8f5e8" stroke="#4caf50" stroke-width="1"/>
+  <text x="1105" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+    평가 및 저장
+  </text>
+  
+  <rect x="990" y="520" width="230" height="70" rx="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+  <text x="1105" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">
+    LoRA 어댑터 저장
+  </text>
+  <text x="1000" y="550" font-family="Arial, sans-serif" font-size="9" fill="#2e7d32">
+    adapter_model.safetensors (10-100MB)
+  </text>
+  <text x="1000" y="562" font-family="Arial, sans-serif" font-size="9" fill="#2e7d32">
+    A, B 행렬 가중치만 저장
+  </text>
+  <text x="1000" y="574" font-family="Arial, sans-serif" font-size="9" fill="#2e7d32">
+    원본 모델은 공유하여 재사용
+  </text>
+  <text x="1000" y="586" font-family="Arial, sans-serif" font-size="9" fill="#2e7d32">
+    ✅ 배포 및 버전 관리 용이
+  </text>
+  
+  <!-- Training Progress -->
+  <rect x="80" y="620" width="1150" height="80" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1"/>
+  <text x="655" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#495057">
+    실제 훈련 진행 상황 (VARCO-8B 예시)
+  </text>
+  
+  <text x="100" y="665" font-family="Arial, sans-serif" font-size="11" fill="#6c757d">
+    📊 데이터: 944개 금융 뉴스 → 756개 훈련, 188개 테스트
+  </text>
+  <text x="100" y="680" font-family="Arial, sans-serif" font-size="11" fill="#6c757d">
+    ⚡ 하이퍼파라미터: lr=1e-4, epochs=3, batch_size=2, r=8, α=32
+  </text>
+  <text x="100" y="695" font-family="Arial, sans-serif" font-size="11" fill="#6c757d">
+    🎯 결과: Loss 2.05→0.018, 567 steps, 13시간 56분, A100-80GB 사용
+  </text>
+  
+  <!-- Step 4: Deployment and Usage -->
+  <rect x="50" y="740" width="1400" height="160" rx="12" fill="#f0f8e7" stroke="#4caf50" stroke-width="2"/>
+  <text x="750" y="765" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    4단계: 배포 및 사용
+  </text>
+  
+  <!-- Model Loading -->
+  <rect x="80" y="780" width="250" height="100" rx="8" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+  <text x="205" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">
+    모델 로딩
+  </text>
+  <text x="90" y="825" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    AutoPeftModelForCausalLM
+  </text>
+  <text x="90" y="840" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    .from_pretrained("path/to/checkpoint")
+  </text>
+  <text x="90" y="855" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    ✅ 베이스 모델 + LoRA 자동 결합
+  </text>
+  <text x="90" y="870" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    ✅ 추론 준비 완료
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 330 830 L 370 830" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Inference Pipeline -->
+  <rect x="380" y="780" width="250" height="100" rx="8" fill="#bbdefb" stroke="#2196f3" stroke-width="1"/>
+  <text x="505" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1976d2">
+    추론 파이프라인
+  </text>
+  <text x="390" y="825" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    pipeline("text-generation",
+  </text>
+  <text x="390" y="840" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    model=fine_tuned_model,
+  </text>
+  <text x="390" y="855" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    tokenizer=tokenizer)
+  </text>
+  <text x="390" y="870" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    ✅ 실시간 추론 가능
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 630 830 L 670 830" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Performance Monitoring -->
+  <rect x="680" y="780" width="250" height="100" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="805" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">
+    성능 모니터링
+  </text>
+  <text x="690" y="825" font-family="Arial, sans-serif" font-size="11" fill="#f57c00">
+    • 응답 품질 평가
+  </text>
+  <text x="690" y="840" font-family="Arial, sans-serif" font-size="11" fill="#f57c00">
+    • 실시간 성능 지표
+  </text>
+  <text x="690" y="855" font-family="Arial, sans-serif" font-size="11" fill="#f57c00">
+    • 사용자 피드백 수집
+  </text>
+  <text x="690" y="870" font-family="Arial, sans-serif" font-size="11" fill="#f57c00">
+    ✅ 지속적 개선
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 930 830 L 970 830" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Multiple Adapters -->
+  <rect x="980" y="780" width="250" height="100" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1"/>
+  <text x="1105" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7b1fa2">
+    다중 어댑터 관리
+  </text>
+  <text x="990" y="825" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    • 의료용 LoRA
+  </text>
+  <text x="990" y="840" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    • 법률용 LoRA
+  </text>
+  <text x="990" y="855" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    • 금융용 LoRA (현재)
+  </text>
+  <text x="990" y="870" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    ✅ 동적 교체 가능
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 1230 830 L 1270 830" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Production Ready -->
+  <rect x="1280" y="780" width="150" height="100" rx="8" fill="#e8f5e8" stroke="#4caf50" stroke-width="2"/>
+  <text x="1355" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">
+    프로덕션 배포
+  </text>
+  <text x="1290" y="825" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    • API 서버
+  </text>
+  <text x="1290" y="840" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    • 웹 서비스
+  </text>
+  <text x="1290" y="855" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    • 모바일 앱
+  </text>
+  <text x="1290" y="870" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    ✅ 상용화 완료
+  </text>
+  
+  <!-- Key Benefits Summary -->
+  <rect x="50" y="920" width="1400" height="120" rx="12" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+  <text x="750" y="945" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    LoRA + SFT의 핵심 가치
+  </text>
+  
+  <rect x="80" y="960" width="330" height="70" rx="8" fill="#e8f5e8" stroke="#4caf50" stroke-width="1"/>
+  <text x="245" y="980" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">
+    🚀 접근성 혁명
+  </text>
+  <text x="90" y="1000" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    • 개인/소규모 팀도 대형 모델 커스터마이징
+  </text>
+  <text x="90" y="1015" font-family="Arial, sans-serif" font-size="11" fill="#2e7d32">
+    • 일반 GPU(RTX 4090, A100)로 충분
+  </text>
+  
+  <rect x="430" y="960" width="330" height="70" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="1"/>
+  <text x="595" y="980" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1976d2">
+    ⚡ 효율성 극대화
+  </text>
+  <text x="440" y="1000" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    • 메모리 90% 절약, 시간 95% 단축
+  </text>
+  <text x="440" y="1015" font-family="Arial, sans-serif" font-size="11" fill="#1976d2">
+    • 어댑터 크기: 10-100MB (vs 15-70GB)
+  </text>
+  
+  <rect x="780" y="960" width="330" height="70" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1"/>
+  <text x="945" y="980" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7b1fa2">
+    🎯 모듈성 & 유연성
+  </text>
+  <text x="790" y="1000" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    • 하나의 베이스 모델 + 다양한 어댑터
+  </text>
+  <text x="790" y="1015" font-family="Arial, sans-serif" font-size="11" fill="#8e24aa">
+    • 실시간 어댑터 교체 가능
+  </text>
+  
+  <rect x="1130" y="960" width="290" height="70" rx="8" fill="#ffeaa7" stroke="#fdcb6e" stroke-width="1"/>
+  <text x="1275" y="980" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b4513">
+    📈 성능 보장
+  </text>
+  <text x="1140" y="1000" font-family="Arial, sans-serif" font-size="11" fill="#d63031">
+    • 전체 파인튜닝과 동등한 성능
+  </text>
+  <text x="1140" y="1015" font-family="Arial, sans-serif" font-size="11" fill="#d63031">
+    • 도메인 특화 능력 확보
+  </text>
+  
+  <!-- Real-world Impact -->
+  <rect x="50" y="1050" width="1400" height="40" rx="8" fill="#e8f4fd" stroke="#3498db" stroke-width="1"/>
+  <text x="750" y="1070" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">
+    🌍 실제 임팩트: AI 민주화의 핵심 동력
+  </text>
+  <text x="70" y="1085" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+    LoRA + SFT로 인해 스타트업, 중소기업, 개인 개발자도 ChatGPT 수준의 도메인 특화 AI를 개발할 수 있게 되었습니다. 이는 AI 기술의 진정한 민주화를 의미합니다.
+  </text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>
+  

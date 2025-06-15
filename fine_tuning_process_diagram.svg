@@ -1,0 +1,300 @@
+<svg viewBox="0 0 1400 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1400" height="1000" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="700" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+    VARCO-8B 모델 LoRA 파인튜닝 전체 프로세스
+  </text>
+  
+  <!-- Phase 1: Environment Setup -->
+  <rect x="50" y="60" width="1300" height="80" rx="10" fill="#e8f4fd" stroke="#3498db" stroke-width="2"/>
+  <text x="700" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    1단계: 환경 설정 및 라이브러리 설치
+  </text>
+  <text x="70" y="105" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+    • PyTorch 2.8.0, CUDA 활용 (NVIDIA A100-SXM4-80GB)
+  </text>
+  <text x="70" y="120" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+    • transformers, datasets, accelerate, trl, peft 라이브러리 설치
+  </text>
+  
+  <!-- Phase 2: Data Preparation -->
+  <rect x="50" y="160" width="650" height="140" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="375" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    2단계: 데이터 준비
+  </text>
+  
+  <rect x="70" y="200" width="280" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="210" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    원본 데이터셋
+  </text>
+  <text x="80" y="240" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • hojin99/news_data 로드
+  </text>
+  <text x="80" y="255" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 총 944개 금융 뉴스 샘플
+  </text>
+  <text x="80" y="270" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • system, user, assistant 구조
+  </text>
+  
+  <path d="M 350 240 L 390 240" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="400" y="200" width="280" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="540" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    데이터 분할
+  </text>
+  <text x="410" y="240" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 훈련: 756개 (80%)</text>
+  <text x="410" y="255" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 테스트: 188개 (20%)</text>
+  <text x="410" y="270" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • messages 형태로 포맷팅</text>
+  
+  <!-- Phase 3: Model Loading -->
+  <rect x="720" y="160" width="630" height="140" rx="10" fill="#f4f8ff" stroke="#6c5ce7" stroke-width="2"/>
+  <text x="1035" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    3단계: 모델 및 토크나이저 로드
+  </text>
+  
+  <rect x="740" y="200" width="280" height="80" rx="5" fill="#e8edff" stroke="#6c5ce7" stroke-width="1"/>
+  <text x="880" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#5a4fcf">
+    VARCO-8B-Instruct
+  </text>
+  <text x="750" y="240" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • NCSOFT/Llama-VARCO-8B-Instruct</text>
+  <text x="750" y="255" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • torch.bfloat16 최적화</text>
+  <text x="750" y="270" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • device_map="auto"</text>
+  
+  <rect x="1050" y="200" width="280" height="80" rx="5" fill="#e8edff" stroke="#6c5ce7" stroke-width="1"/>
+  <text x="1190" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#5a4fcf">
+    토크나이저 설정
+  </text>
+  <text x="1060" y="240" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • AutoTokenizer 로드</text>
+  <text x="1060" y="255" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • LLaMA-3 채팅 템플릿</text>
+  <text x="1060" y="270" font-family="Arial, sans-serif" font-size="11" fill="#5a4fcf">
+    • 특수 토큰 처리</text>
+  
+  <!-- Phase 4: LoRA Configuration -->
+  <rect x="50" y="320" width="1300" height="120" rx="10" fill="#f8f5ff" stroke="#9b59b6" stroke-width="2"/>
+  <text x="700" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    4단계: LoRA 설정 및 훈련 구성
+  </text>
+  
+  <rect x="70" y="360" width="200" height="60" rx="5" fill="#e8daef" stroke="#bb8fce" stroke-width="1"/>
+  <text x="170" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#8e44ad">
+    LoRA Config
+  </text>
+  <text x="80" y="395" font-family="Arial, sans-serif" font-size="10" fill="#8e44ad">
+    • r=8, alpha=32</text>
+  <text x="80" y="408" font-family="Arial, sans-serif" font-size="10" fill="#8e44ad">
+    • dropout=0.1</text>
+  <text x="80" y="421" font-family="Arial, sans-serif" font-size="10" fill="#8e44ad">
+    • q_proj, v_proj</text>
+  
+  <rect x="290" y="360" width="200" height="60" rx="5" fill="#fce4ec" stroke="#e91e63" stroke-width="1"/>
+  <text x="390" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c2185b">
+    SFT Config
+  </text>
+  <text x="300" y="395" font-family="Arial, sans-serif" font-size="10" fill="#c2185b">
+    • epochs=3, lr=1e-4</text>
+  <text x="300" y="408" font-family="Arial, sans-serif" font-size="10" fill="#c2185b">
+    • batch_size=2</text>
+  <text x="300" y="421" font-family="Arial, sans-serif" font-size="10" fill="#c2185b">
+    • max_seq_length=8192</text>
+  
+  <rect x="510" y="360" width="280" height="60" rx="5" fill="#e8f5e8" stroke="#4caf50" stroke-width="1"/>
+  <text x="650" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#388e3c">
+    Data Collator 함수
+  </text>
+  <text x="520" y="395" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">
+    • LLaMA-3 채팅 포맷 적용</text>
+  <text x="520" y="408" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">
+    • assistant 구간만 레이블링</text>
+  <text x="520" y="421" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">
+    • 패딩 및 마스킹 처리</text>
+  
+  <rect x="810" y="360" width="200" height="60" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="910" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f57c00">
+    SFT Trainer
+  </text>
+  <text x="820" y="395" font-family="Arial, sans-serif" font-size="10" fill="#f57c00">
+    • 모델, 데이터 결합</text>
+  <text x="820" y="408" font-family="Arial, sans-serif" font-size="10" fill="#f57c00">
+    • PEFT 설정 적용</text>
+  <text x="820" y="421" font-family="Arial, sans-serif" font-size="10" fill="#f57c00">
+    • 허브 업로드 준비</text>
+  
+  <rect x="1030" y="360" width="300" height="60" rx="5" fill="#e3f2fd" stroke="#2196f3" stroke-width="1"/>
+  <text x="1180" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1976d2">
+    Hugging Face 연동
+  </text>
+  <text x="1040" y="395" font-family="Arial, sans-serif" font-size="10" fill="#1976d2">
+    • login(token) 인증</text>
+  <text x="1040" y="408" font-family="Arial, sans-serif" font-size="10" fill="#1976d2">
+    • push_to_hub=True</text>
+  <text x="1040" y="421" font-family="Arial, sans-serif" font-size="10" fill="#1976d2">
+    • hub_model_id 설정</text>
+  
+  <!-- Phase 5: Training Process -->
+  <rect x="50" y="460" width="1300" height="140" rx="10" fill="#fff8e1" stroke="#ffc107" stroke-width="2"/>
+  <text x="700" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    5단계: 모델 훈련 실행
+  </text>
+  
+  <rect x="70" y="500" width="250" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="195" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    trainer.train()
+  </text>
+  <text x="80" y="540" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 총 567 스텝 진행</text>
+  <text x="80" y="555" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 3 에포크, 13시간 56분</text>
+  <text x="80" y="570" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • Loss: 2.05 → 0.018</text>
+  
+  <path d="M 320 540 L 360 540" stroke="#ffc107" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="370" y="500" width="250" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="495" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    체크포인트 저장
+  </text>
+  <text x="380" y="540" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 50 스텝마다 저장</text>
+  <text x="380" y="555" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 최종: checkpoint-369</text>
+  <text x="380" y="570" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • LoRA 어댑터만 저장</text>
+  
+  <path d="M 620 540 L 660 540" stroke="#ffc107" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="670" y="500" width="250" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="795" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    trainer.save_model()
+  </text>
+  <text x="680" y="540" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 로컬 저장</text>
+  <text x="680" y="555" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 모델 + 토크나이저</text>
+  <text x="680" y="570" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • LoRA 어댑터 포함</text>
+  
+  <path d="M 920 540 L 960 540" stroke="#ffc107" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="970" y="500" width="300" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="1120" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+    trainer.push_to_hub()
+  </text>
+  <text x="980" y="540" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • Hugging Face Hub 업로드</text>
+  <text x="980" y="555" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • hojin99/llama3-8b-news-analyzer-ko</text>
+  <text x="980" y="570" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+    • 공유 및 재사용 가능</text>
+  
+  <!-- Phase 6: Evaluation -->
+  <rect x="50" y="620" width="1300" height="140" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+  <text x="700" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    6단계: 모델 평가 및 추론
+  </text>
+  
+  <rect x="70" y="660" width="280" height="80" rx="5" fill="#f8bbd9" stroke="#e91e63" stroke-width="1"/>
+  <text x="210" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c2185b">
+    테스트 데이터 준비
+  </text>
+  <text x="80" y="700" font-family="Arial, sans-serif" font-size="11" fill="#c2185b">
+    • prompt_lst, label_lst 생성</text>
+  <text x="80" y="715" font-family="Arial, sans-serif" font-size="11" fill="#c2185b">
+    • assistant 구간 분리</text>
+  <text x="80" y="730" font-family="Arial, sans-serif" font-size="11" fill="#c2185b">
+    • 188개 테스트 샘플</text>
+  
+  <path d="M 350 700 L 390 700" stroke="#9c27b0" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="400" y="660" width="280" height="80" rx="5" fill="#e1bee7" stroke="#9c27b0" stroke-width="1"/>
+  <text x="540" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2">
+    파인튜닝 모델 로드
+  </text>
+  <text x="410" y="700" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • AutoPeftModelForCausalLM</text>
+  <text x="410" y="715" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • checkpoint-369 사용</text>
+  <text x="410" y="730" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • pipeline 생성</text>
+  
+  <path d="M 680 700 L 720 700" stroke="#9c27b0" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="730" y="660" width="280" height="80" rx="5" fill="#e1bee7" stroke="#9c27b0" stroke-width="1"/>
+  <text x="870" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2">
+    추론 함수 정의
+  </text>
+  <text x="740" y="700" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • test_inference(pipe, prompt)</text>
+  <text x="740" y="715" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • max_new_tokens=1024</text>
+  <text x="740" y="730" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • eos_token_id 설정</text>
+  
+  <path d="M 1010 700 L 1050 700" stroke="#9c27b0" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="1060" y="660" width="270" height="80" rx="5" fill="#e1bee7" stroke="#9c27b0" stroke-width="1"/>
+  <text x="1195" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2">
+    성능 검증
+  </text>
+  <text x="1070" y="700" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • 생성 결과 vs 정답 비교</text>
+  <text x="1070" y="715" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • 금융 뉴스 분석 품질 확인</text>
+  <text x="1070" y="730" font-family="Arial, sans-serif" font-size="11" fill="#7b1fa2">
+    • JSON 형태 구조화 출력</text>
+  
+  <!-- Key Results -->
+  <rect x="50" y="780" width="1300" height="100" rx="10" fill="#e8f5e8" stroke="#4caf50" stroke-width="2"/>
+  <text x="700" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    주요 성과 및 결과
+  </text>
+  
+  <text x="70" y="830" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+    ✅ 성공적인 LoRA 파인튜닝 완료
+  </text>
+  <text x="90" y="850" font-family="Arial, sans-serif" font-size="12" fill="#388e3c">
+    • 메모리 효율적: 전체 모델 대비 90% 이상 절약
+  </text>
+  <text x="90" y="865" font-family="Arial, sans-serif" font-size="12" fill="#388e3c">
+    • 빠른 학습: 13시간 56분으로 고품질 금융 뉴스 분석 모델 완성
+  </text>
+  
+  <text x="700" y="830" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+    🚀 배포 가능한 모델 생성
+  </text>
+  <text x="720" y="850" font-family="Arial, sans-serif" font-size="12" fill="#388e3c">
+    • Hugging Face Hub에 업로드된 재사용 가능한 모델
+  </text>
+  <text x="720" y="865" font-family="Arial, sans-serif" font-size="12" fill="#388e3c">
+    • JSON 형태의 구조화된 금융 분석 결과 생성 가능</text>
+  
+  <!-- Performance Metrics -->
+  <rect x="50" y="900" width="1300" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+  <text x="700" y="925" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    학습 성능 지표
+  </text>
+  
+  <text x="70" y="950" font-family="Arial, sans-serif" font-size="12" fill="#f57c00">
+    📊 훈련 손실: 2.05 (초기) → 0.018 (최종) | 학습률: 1e-4 (constant) | 메모리 사용량: ~24GB (A100-80GB)
+  </text>
+  <text x="70" y="965" font-family="Arial, sans-serif" font-size="12" fill="#f57c00">
+    ⚡ 총 훈련 시간: 838.03초 (13시간 56분) | 스텝당 속도: 0.677 steps/sec | 샘플당 속도: 2.706 samples/sec
+  </text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,36 @@
+gantt
+    title 취업 준비 프로젝트 1개월 완성 일정표
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%d
+    
+    section 기반 준비
+    기술스택 점검     :done, prep1, 2025-06-18, 2d
+    개발환경 셋업     :done, prep2, 2025-06-20, 2d
+    Git 포트폴리오 구성 :prep3, 2025-06-22, 1d
+    
+    section P-4 맛집검색 (1순위)
+    요구사항 분석    :p4-req, 2025-06-21, 2d
+    DB/API 설계     :p4-design, after p4-req, 2d
+    백엔드 개발     :active, p4-back, 2025-06-25, 5d
+    프론트엔드 개발  :p4-front, 2025-06-27, 5d
+    통합 테스트     :p4-test, after p4-back p4-front, 2d
+    AWS 배포       :p4-deploy, after p4-test, 3d
+    문서화/최적화   :p4-doc, after p4-deploy, 2d
+    
+    section P-6 MSA 커피매장 (1순위)
+    MSA 아키텍처 설계 :p6-arch, 2025-06-23, 3d
+    기본 서비스 구축  :p6-basic, 2025-06-26, 4d
+    핵심 기능 구현   :p6-core, 2025-07-02, 5d
+    Docker 컨테이너화 :p6-docker, after p6-core, 3d
+    K8s 배포 시도   :p6-k8s, after p6-docker, 3d
+    
+    section P-5 WebRTC (2순위)
+    기술 조사       :p5-research, 2025-07-07, 2d
+    기본 구현       :p5-basic, after p5-research, 4d
+    
+    section P-1 주차장예약 (2순위)
+    설계 및 기본구현 :p1-basic, 2025-07-10, 4d
+    
+    section 최종 완성
+    포트폴리오 정리  :final-port, 2025-07-12, 3d
+    발표자료 준비   :final-pres, after final-port, 2d

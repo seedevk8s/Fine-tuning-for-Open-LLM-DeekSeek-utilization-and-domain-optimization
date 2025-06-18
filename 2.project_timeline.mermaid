@@ -1,0 +1,52 @@
+gantt
+    title 취업 준비 프로젝트 5개월 완성 일정표 (2025.06.20 ~ 2025.11.20)
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m월
+    
+    section Phase 1: 기초완성 (7월)
+    Java & Spring Boot    :phase1-1, 2025-07-01, 7d
+    P-1 주차장예약 시작   :p1-start, 2025-07-01, 7d
+    DB & 웹기초          :phase1-2, after phase1-1, 7d
+    P-1 주차장예약 완성   :p1-done, after p1-start, 14d
+    React 프론트엔드     :phase1-3, after phase1-2, 7d
+    P-4 맛집검색 시작    :p4-start, after phase1-3, 7d
+    통합개발 경험        :phase1-4, after phase1-3, 7d
+    P-4 맛집검색 완성    :p4-done, after p4-start, 14d
+    
+    section Phase 2: 클라우드&DevOps (8월)
+    Docker 컨테이너화    :phase2-1, 2025-08-01, 7d
+    기존 프로젝트 Docker화 :docker-existing, after phase2-1, 7d
+    AWS 클라우드 기초    :phase2-2, after phase2-1, 7d
+    AWS 배포 실습       :aws-deploy, after phase2-2, 7d
+    CI/CD 파이프라인    :phase2-3, after phase2-2, 7d
+    P-8 강의평가 시작   :p8-start, after phase2-3, 7d
+    모니터링 & 성능최적화 :phase2-4, after phase2-3, 7d
+    P-8 강의평가 완성   :p8-done, after p8-start, 14d
+    
+    section Phase 3: MSA&고급아키텍처 (9월)
+    MSA 아키텍처 설계   :phase3-1, 2025-09-01, 7d
+    P-6 MSA 커피매장 설계 :p6-design, after phase3-1, 7d
+    서비스 간 통신      :phase3-2, after phase3-1, 7d
+    P-6 핵심 서비스 구현 :p6-core, after p6-design, 14d
+    Kubernetes 기초     :phase3-3, after phase3-2, 7d
+    P-6 K8s 배포       :p6-k8s, after p6-core, 7d
+    통합테스트 & 문서화  :phase3-4, after phase3-3, 7d
+    P-6 MSA 시스템 완성 :p6-done, after p6-k8s, 7d
+    
+    section Phase 4: 실무프로젝트 (10월)
+    WebRTC & 실시간통신 :phase4-1, 2025-10-01, 7d
+    P-5 화상회의 시작   :p5-start, after phase4-1, 7d
+    고급 프론트엔드     :phase4-2, after phase4-1, 7d
+    P-5 다자간 통화     :p5-multi, after p5-start, 14d
+    대규모 시스템 설계  :phase4-3, after phase4-2, 7d
+    P-3 사내통합관리 설계 :p3-design, after phase4-3, 7d
+    보안 & 성능최적화   :phase4-4, after phase4-3, 7d
+    P-3 핵심모듈 구현   :p3-core, after p3-design, 14d
+    
+    section Phase 5: 포트폴리오완성 (11월)
+    프로젝트 완성도 높이기 :phase5-1, 2025-11-01, 7d
+    P-7 디지털교육플랫폼 :p7-basic, after phase5-1, 7d
+    포트폴리오 문서화   :phase5-2, after phase5-1, 7d
+    GitHub 포트폴리오 정리 :portfolio-github, after phase5-2, 7d
+    취업준비 완료      :phase5-3, after phase5-2, 6d
+    P-2 전자소송 (선택) :p2-optional, after phase5-3, 6d

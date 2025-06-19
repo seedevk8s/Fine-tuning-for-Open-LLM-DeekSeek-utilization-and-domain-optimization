@@ -1,0 +1,47 @@
+classDiagram
+    class Calculator {
+        +HTMLElement num1Input
+        +HTMLElement num2Input
+        +HTMLElement resultDiv
+        +calculate(operation: string) void
+        +validateInputs() boolean
+        +displayResult(message: string, isError: boolean) void
+    }
+    
+    class MathOperations {
+        +add(a: number, b: number) number
+        +subtract(a: number, b: number) number
+        +multiply(a: number, b: number) number
+        +divide(a: number, b: number) number|string
+    }
+    
+    class UIController {
+        +showResult(message: string, isError: boolean) void
+        +getSymbol(operation: string) string
+        +initializeApp() void
+        +setupEventListeners() void
+    }
+    
+    class ValidationService {
+        +isValidNumber(value: any) boolean
+        +isDivisionByZero(divisor: number) boolean
+        +sanitizeInput(input: string) number
+    }
+    
+    class ConsoleLogger {
+        +logOperation(operation: string, a: number, b: number, result: number|string) void
+        +logError(message: string) void
+        +logInfo(message: string) void
+    }
+    
+    Calculator --> MathOperations : uses
+    Calculator --> UIController : uses
+    Calculator --> ValidationService : uses
+    MathOperations --> ConsoleLogger : uses
+    UIController --> ConsoleLogger : uses
+    
+    note for Calculator "메인 계산기 컨트롤러\n사용자 입력 처리 및 전체 플로우 관리"
+    note for MathOperations "순수 계산 로직\n익명함수로 구현된 4가지 연산"
+    note for UIController "UI 표시 및 상호작용\n결과 표시, 스타일 관리"
+    note for ValidationService "입력값 검증\n에러 처리 로직"
+    note for ConsoleLogger "디버깅 및 로깅\n콘솔 출력 관리"

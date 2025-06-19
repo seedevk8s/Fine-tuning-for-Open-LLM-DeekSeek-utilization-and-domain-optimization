@@ -1,0 +1,38 @@
+flowchart TD
+    A[HTML 페이지 로드] --> B[JavaScript 코드 파싱]
+    
+    B --> C[1단계: 함수 정의]
+    C --> C1[let add = function...]
+    C --> C2[let subtract = function...]
+    C --> C3[let multiply = function...]
+    
+    C1 --> D[메모리에 저장]
+    C2 --> D
+    C3 --> D
+    
+    D --> E[window.onload 등록]
+    E --> F[페이지 로드 완료]
+    
+    F --> G[onload 함수 실행]
+    G --> H[console.log: 준비됨]
+    
+    H --> I[setTimeout 등록]
+    I --> J[1초 대기]
+    
+    J --> K[setTimeout 함수 실행]
+    K --> L[performCalculation 호출]
+    
+    L --> M[add 함수 호출]
+    M --> N[console.log: 덧셈 계산]
+    N --> O[결과 반환]
+    
+    O --> P[사용자 액션 대기]
+    P --> Q[버튼 클릭]
+    Q --> L
+    
+    style A fill:#e1f5fe
+    style C fill:#fff3e0
+    style D fill:#ffebee
+    style G fill:#e8f5e8
+    style M fill:#ffecb3
+    style N fill:#e3f2fd

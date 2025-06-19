@@ -1,0 +1,69 @@
+sequenceDiagram
+    participant User as 사용자
+    participant DOM as DOM Element
+    participant Calc as calculate()
+    participant Val as Validation
+    participant Math as 익명함수(add/sub/mul/div)
+    participant UI as showResult()
+    participant Console as Console Log
+    
+    Note over User,Console: 📱 계산기 사용 플로우
+    
+    User->>DOM: 1. 숫자 입력 (num1, num2)
+    User->>DOM: 2. 연산 버튼 클릭
+    DOM->>Calc: 3. onclick="calculate('add')"
+    
+    Calc->>DOM: 4. getElementById로 입력값 조회
+    DOM-->>Calc: 5. 입력값 반환
+    
+    Calc->>Val: 6. isNaN() 검증
+    
+    alt 입력값이 유효하지 않은 경우
+        Val-->>Calc: 7a. 검증 실패
+        Calc->>UI: 8a. showResult("오류 메시지", true)
+        UI->>DOM: 9a. 에러 스타일로 결과 표시
+        UI->>Console: 10a. 에러 로그 출력
+    else 입력값이 유효한 경우
+        Val-->>Calc: 7b. 검증 성공
+        
+        alt 덧셈 연산
+            Calc->>Math: 8b1. add(num1, num2) 호출
+            Math->>Console: 9b1. 계산 과정 로그
+            Math-->>Calc: 10b1. 결과 반환
+            
+        else 뺄셈 연산
+            Calc->>Math: 8b2. subtract(num1, num2) 호출
+            Math->>Console: 9b2. 계산 과정 로그
+            Math-->>Calc: 10b2. 결과 반환
+            
+        else 곱셈 연산
+            Calc->>Math: 8b3. multiply(num1, num2) 호출
+            Math->>Console: 9b3. 계산 과정 로그
+            Math-->>Calc: 10b3. 결과 반환
+            
+        else 나눗셈 연산
+            Calc->>Math: 8b4. divide(num1, num2) 호출
+            
+            alt 0으로 나누기
+                Math->>Console: 9b4a. 오류 로그
+                Math-->>Calc: 10b4a. "오류 메시지" 반환
+            else 정상 나눗셈
+                Math->>Console: 9b4b. 계산 과정 로그
+                Math-->>Calc: 10b4b. 결과 반환
+            end
+        end
+        
+        alt 에러 결과인 경우
+            Calc->>UI: 11a. showResult(errorMsg, true)
+            UI->>DOM: 12a. 에러 스타일로 표시
+        else 정상 결과인 경우
+            Calc->>UI: 11b. showResult(successMsg, false)
+            UI->>DOM: 12b. 성공 스타일로 표시
+        end
+        
+        UI->>Console: 13. 화면 표시 로그
+    end
+    
+    DOM->>User: 14. 최종 결과 화면에 표시
+    
+    Note over User,Console: 🎯 핵심: 익명함수들이 각각의 역할을 담당하여 깔끔한 분리

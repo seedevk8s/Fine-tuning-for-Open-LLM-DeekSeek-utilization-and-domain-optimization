@@ -1,0 +1,98 @@
+flowchart TD
+    A[🌐 HTML 페이지 로드] --> B[📜 JavaScript 코드 파싱]
+    
+    B --> C[📦 1단계: 기본 계산 익명함수들 정의]
+    C --> C1[let add = function...]
+    C --> C2[let subtract = function...]
+    C --> C3[let multiply = function...]
+    C --> C4[let divide = function...]
+    
+    C1 --> D[💾 메모리에 저장 - 아직 실행 안됨]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    
+    D --> E[📦 2단계: UI 관련 익명함수들 정의]
+    E --> E1[let showResult = function...]
+    E --> E2[let getOperatorSymbol = function...]
+    E --> E3[let updateFunctionStatus = function...]
+    
+    E1 --> F[💾 메모리에 저장 - 아직 실행 안됨]
+    E2 --> F
+    E3 --> F
+    
+    F --> G[📦 3단계: 메인 함수 정의]
+    G --> G1[function performCalculation...]
+    G1 --> H[💾 메모리에 저장 - 아직 실행 안됨]
+    
+    H --> I[📦 4단계: 초기화 함수 등록]
+    I --> I1[window.onload = function...]
+    I1 --> J[💾 이벤트 리스너 등록 - 페이지 로드 완료 대기]
+    
+    J --> K[✅ 페이지 로드 완료]
+    K --> L[🚀 window.onload 익명함수 실행]
+    
+    L --> M[💬 콘솔 로그 출력]
+    M --> N[📊 함수 상태 점검]
+    N --> O[⏰ setTimeout 등록 - 1.5초 후 실행]
+    
+    O --> P[⏳ 1.5초 대기...]
+    P --> Q[🎬 setTimeout 내부 익명함수 실행]
+    Q --> R[📞 performCalculation 호출]
+    
+    R --> S{🔍 performCalculation 함수 내부}
+    S --> S1[📊 입력값 가져오기]
+    S1 --> S2[✅ 입력값 검증]
+    S2 --> S3[🔀 switch문으로 연산 분기]
+    S3 --> S4[📞 해당 익명함수 호출]
+    
+    S4 --> T[🎯 add 함수 실행]
+    T --> T1[💬 console.log 실행]
+    T1 --> T2[🔢 계산 수행 및 결과 반환]
+    
+    T2 --> U[📞 showResult 익명함수 호출]
+    U --> U1[🔍 DOM 요소 찾기]
+    U1 --> U2[✏️ 텍스트 내용 변경]
+    U2 --> U3[👁️ 화면에 표시]
+    U3 --> U4[🎨 스타일 적용]
+    
+    U4 --> V[⏳ 3초 대기...]
+    V --> W[🎬 두 번째 setTimeout 실행]
+    W --> X[📝 입력값 변경]
+    X --> Y[📞 performCalculation 재호출]
+    Y --> S
+    
+    U4 --> Z[⏳ 사용자 액션 대기]
+    Z --> AA[👆 사용자가 버튼 클릭]
+    AA --> BB[📞 onclick 이벤트 발생]
+    BB --> CC[📞 performCalculation 호출]
+    CC --> S
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#ffebee
+    style E fill:#fff3e0
+    style F fill:#ffebee
+    style G fill:#fff3e0
+    style H fill:#ffebee
+    style I fill:#fff3e0
+    style J fill:#ffebee
+    style K fill:#e8f5e8
+    style L fill:#c8e6c9
+    style M fill:#e3f2fd
+    style O fill:#fff9c4
+    style Q fill:#c8e6c9
+    style R fill:#e1f5fe
+    style T fill:#ffecb3
+    style T1 fill:#e3f2fd
+    style T2 fill:#c8e6c9
+    style U fill:#ffecb3
+    style U1 fill:#e8f5e8
+    style U2 fill:#e8f5e8
+    style U3 fill:#e8f5e8
+    style U4 fill:#e8f5e8
+    style W fill:#c8e6c9
+    style AA fill:#f8bbd9
+    style BB fill:#f8bbd9
+    style CC fill:#e1f5fe

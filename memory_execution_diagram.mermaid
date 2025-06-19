@@ -1,0 +1,38 @@
+flowchart TD
+    subgraph "함수 정의 단계"
+        A[let add = function...]
+        B[let subtract = function...]  
+        C[let multiply = function...]
+        D[function performCalculation...]
+        E[window.onload = function...]
+    end
+    
+    subgraph "메모리 저장"
+        F[add 함수 저장됨]
+        G[subtract 함수 저장됨]
+        H[multiply 함수 저장됨]
+        I[performCalculation 저장됨]
+        J[onload 함수 저장됨]
+    end
+    
+    subgraph "실제 실행"
+        K[페이지 로드 완료]
+        L[onload 함수 실행]
+        M[console: 준비됨]
+        N[setTimeout 실행]
+        O[add 함수 호출]
+        P[console: 덧셈 계산]
+    end
+    
+    A --> F
+    B --> G  
+    C --> H
+    D --> I
+    E --> J
+    
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+    N --> O
+    O --> P
